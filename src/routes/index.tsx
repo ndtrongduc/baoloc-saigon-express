@@ -1,84 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Mountain, Calendar, Users, ArrowRight, Send, Loader2 } from "lucide-react";
-import { useState } from "react";
-import { z } from "zod";
+import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Mountain, Calendar, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import heroImg from "@/assets/hero-baoloc.jpg";
 import vanImg from "@/assets/van-7seat.jpg";
-
-const PAGE_TITLE = "Tài Phát - Xe 7 chỗ Bảo Lộc Sài Gòn 300k/vé, 2h/chuyến";
-const PAGE_DESC = "Nhà xe Tài Phát: tuyến Bảo Lộc ⇄ Sài Gòn, xe 7 chỗ đời mới, giá 300.000đ/vé, tần suất 2 tiếng/chuyến. Đưa đón tận nơi, hỗ trợ đi bệnh viện, sân bay. Hotline 24/7.";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: PAGE_TITLE },
-      { name: "description", content: PAGE_DESC },
-      { name: "keywords", content: "xe Bảo Lộc Sài Gòn, nhà xe Tài Phát, xe 7 chỗ Bảo Lộc, đưa đón sân bay, xe đi bệnh viện Sài Gòn" },
-      { name: "robots", content: "index,follow,max-image-preview:large" },
-      { name: "geo.region", content: "VN-LD" },
-      { name: "geo.placename", content: "Bảo Lộc" },
-      { property: "og:title", content: PAGE_TITLE },
-      { property: "og:description", content: PAGE_DESC },
-      { property: "og:url", content: "/" },
-      { property: "og:image", content: heroImg },
-      { name: "twitter:title", content: PAGE_TITLE },
-      { name: "twitter:description", content: PAGE_DESC },
-      { name: "twitter:image", content: heroImg },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "TaxiService",
-          name: "Tài Phát - Nhà xe Bảo Lộc Sài Gòn",
-          description: PAGE_DESC,
-          telephone: "+84909999999",
-          priceRange: "300.000đ",
-          image: heroImg,
-          areaServed: [
-            { "@type": "City", name: "Bảo Lộc" },
-            { "@type": "City", name: "Hồ Chí Minh" },
-          ],
-          address: { "@type": "PostalAddress", addressLocality: "Bảo Lộc", addressRegion: "Lâm Đồng", addressCountry: "VN" },
-          openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "00:00", closes: "23:59" },
-          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "1280" },
-          offers: { "@type": "Offer", price: "300000", priceCurrency: "VND", description: "Vé xe 7 chỗ Bảo Lộc - Sài Gòn" },
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: [
-            { "@type": "Question", name: "Giá vé Tài Phát Bảo Lộc Sài Gòn bao nhiêu?", acceptedAnswer: { "@type": "Answer", text: "Giá vé chỉ 300.000đ/người/chuyến, đã bao gồm đưa đón tận nơi." } },
-            { "@type": "Question", name: "Tần suất chạy xe như thế nào?", acceptedAnswer: { "@type": "Answer", text: "Xe khởi hành liên tục 2 tiếng/chuyến cả 2 chiều Bảo Lộc - Sài Gòn." } },
-            { "@type": "Question", name: "Có hỗ trợ sân bay và bệnh viện không?", acceptedAnswer: { "@type": "Answer", text: "Có. Tài Phát hỗ trợ đưa đón sân bay Tân Sơn Nhất, các bệnh viện lớn tại TP.HCM và hỗ trợ đặt lịch khám." } },
-          ],
-        }),
-      },
+      { title: "Tài Phát - Nhà xe 7 chỗ Bảo Lộc Sài Gòn 300k/vé, 2 tiếng/chuyến" },
+      { name: "description", content: "Nhà xe Tài Phát: Tuyến Bảo Lộc ⇄ Sài Gòn, xe 7 chỗ đời mới, giá 300.000đ/vé, tần suất 2 tiếng/chuyến. Đưa đón tận nơi, hỗ trợ đi bệnh viện, sân bay." },
     ],
   }),
 });
-
-// Conversion tracking helper — pushes to dataLayer (GA4/GTM/Meta Pixel friendly)
-function trackEvent(event: string, params: Record<string, unknown> = {}) {
-  if (typeof window === "undefined") return;
-  const w = window as unknown as { dataLayer?: unknown[]; gtag?: (...a: unknown[]) => void; fbq?: (...a: unknown[]) => void };
-  w.dataLayer = w.dataLayer || [];
-  w.dataLayer.push({ event, ...params, timestamp: Date.now() });
-  if (typeof w.gtag === "function") w.gtag("event", event, params);
-  if (typeof w.fbq === "function" && event === "lead") w.fbq("track", "Lead", params);
-}
-
-function trackCall(source: string) {
-  trackEvent("call_click", { source, phone: "0909999999", value: 300000, currency: "VND" });
-}
 
 const HOTLINE = "0909 999 999";
 const HOTLINE_TEL = "0909999999";
@@ -95,7 +29,6 @@ function Index() {
       <Vehicle />
       <Process />
       <Testimonials />
-      <BookingForm />
       <CTA />
       <Footer />
     </div>
@@ -107,7 +40,7 @@ function TopBar() {
     <div className="bg-primary text-primary-foreground text-sm py-2 px-4">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
         <span className="flex items-center gap-2"><MapPin className="w-4 h-4 text-gold" /> Bảo Lộc ⇄ Sài Gòn — Đưa đón tận nơi</span>
-        <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")} className="flex items-center gap-2 font-semibold hover:text-gold transition-colors">
+        <a href={`tel:${HOTLINE_TEL}`} className="flex items-center gap-2 font-semibold hover:text-gold transition-colors">
           <Phone className="w-4 h-4" /> Hotline: {HOTLINE}
         </a>
       </div>
@@ -133,10 +66,9 @@ function Header() {
           <a href="#tuyen" className="hover:text-primary">Tuyến đường</a>
           <a href="#xe" className="hover:text-primary">Phương tiện</a>
           <a href="#danh-gia" className="hover:text-primary">Đánh giá</a>
-          <a href="#dat-xe" className="hover:text-primary">Đặt xe</a>
         </nav>
         <Button asChild size="lg" className="bg-gradient-gold text-gold-foreground hover:opacity-90 shadow-gold font-bold">
-          <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")}><Phone className="w-4 h-4 mr-2" /> Đặt xe ngay</a>
+          <a href={`tel:${HOTLINE_TEL}`}><Phone className="w-4 h-4 mr-2" /> Đặt xe ngay</a>
         </Button>
       </div>
     </header>
@@ -164,7 +96,7 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-gradient-gold text-gold-foreground hover:opacity-90 shadow-gold font-bold text-base h-14 px-8">
-              <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")}><Phone className="w-5 h-5 mr-2" /> Gọi {HOTLINE}</a>
+              <a href={`tel:${HOTLINE_TEL}`}><Phone className="w-5 h-5 mr-2" /> Gọi {HOTLINE}</a>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-2 border-primary-foreground/40 bg-primary-foreground/10 backdrop-blur text-primary-foreground hover:bg-primary-foreground hover:text-primary h-14 px-8 font-bold">
               <a href="#dich-vu">Xem dịch vụ <ArrowRight className="w-4 h-4 ml-2" /></a>
@@ -401,7 +333,7 @@ function CTA() {
             <p className="mt-4 text-lg opacity-90">Gọi ngay để đặt chuyến gần nhất. Tài Phát luôn có xe phục vụ bạn.</p>
           </div>
           <div className="flex flex-col gap-3">
-            <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")} className="flex items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-gold text-gold-foreground shadow-gold hover:scale-[1.02] transition-transform">
+            <a href={`tel:${HOTLINE_TEL}`} className="flex items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-gold text-gold-foreground shadow-gold hover:scale-[1.02] transition-transform">
               <div>
                 <div className="text-sm font-bold opacity-80">HOTLINE 24/7</div>
                 <div className="text-3xl font-black">{HOTLINE}</div>
@@ -437,7 +369,7 @@ function Footer() {
         <div>
           <div className="font-bold text-primary-foreground mb-3">Liên hệ</div>
           <div className="space-y-2 text-sm">
-            <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")} className="flex items-center gap-2 hover:text-gold"><Phone className="w-4 h-4" /> {HOTLINE}</a>
+            <a href={`tel:${HOTLINE_TEL}`} className="flex items-center gap-2 hover:text-gold"><Phone className="w-4 h-4" /> {HOTLINE}</a>
             <div className="flex items-center gap-2"><MapPin className="w-4 h-4" /> Bảo Lộc, Lâm Đồng</div>
             <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> 24/7 — 365 ngày</div>
           </div>
@@ -456,111 +388,5 @@ function Footer() {
         © {new Date().getFullYear()} Tài Phát. Tất cả quyền được bảo lưu.
       </div>
     </footer>
-  );
-}
-
-const bookingSchema = z.object({
-  name: z.string().trim().min(2, "Vui lòng nhập họ tên").max(60),
-  phone: z.string().trim().regex(/^(0|\+84)[0-9]{9,10}$/, "Số điện thoại không hợp lệ"),
-  direction: z.enum(["bl-sg", "sg-bl"]),
-  date: z.string().min(1, "Chọn ngày khởi hành"),
-  pax: z.string().regex(/^[1-9][0-9]?$/, "Số khách 1-99").default("1"),
-  note: z.string().max(300).optional().default(""),
-});
-
-function BookingForm() {
-  const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setErrors({});
-    const fd = new FormData(e.currentTarget);
-    const raw = Object.fromEntries(fd.entries());
-    const parsed = bookingSchema.safeParse(raw);
-    if (!parsed.success) {
-      const map: Record<string, string> = {};
-      parsed.error.issues.forEach((i) => { map[String(i.path[0])] = i.message; });
-      setErrors(map);
-      trackEvent("form_error", { form: "booking", errors: Object.keys(map) });
-      return;
-    }
-    setStatus("submitting");
-    trackEvent("generate_lead", {
-      form: "booking",
-      direction: parsed.data.direction,
-      pax: Number(parsed.data.pax),
-      value: 300000 * Number(parsed.data.pax),
-      currency: "VND",
-    });
-    trackEvent("lead", { form: "booking" });
-    // Simulate handoff: open phone dialer for instant confirmation
-    setTimeout(() => {
-      setStatus("ok");
-      (e.target as HTMLFormElement).reset();
-    }, 600);
-  };
-
-  return (
-    <section id="dat-xe" className="py-20 px-4 bg-secondary/40">
-      <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
-        <div>
-          <div className="inline-block px-3 py-1 rounded-full bg-gold/20 text-primary text-sm font-bold mb-3">ĐẶT XE NHANH</div>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight">Để lại thông tin, <br /><span className="text-primary">Tài Phát gọi lại trong 5 phút</span></h2>
-          <p className="mt-4 text-muted-foreground text-lg">Hoặc gọi trực tiếp hotline để giữ chỗ chuyến gần nhất. Tổng đài 24/7.</p>
-          <a
-            href={`tel:${HOTLINE_TEL}`}
-            onClick={() => trackCall("booking_section")}
-            className="mt-6 inline-flex items-center gap-3 text-primary font-bold text-xl hover:text-gold transition-colors"
-          >
-            <Phone className="w-6 h-6" /> {HOTLINE}
-          </a>
-        </div>
-        <form onSubmit={onSubmit} noValidate className="p-6 md:p-8 rounded-3xl bg-card shadow-elegant border space-y-4">
-          <div>
-            <label className="text-sm font-bold mb-1.5 block">Họ tên *</label>
-            <Input name="name" placeholder="Nguyễn Văn A" maxLength={60} aria-invalid={!!errors.name} />
-            {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
-          </div>
-          <div>
-            <label className="text-sm font-bold mb-1.5 block">Số điện thoại *</label>
-            <Input name="phone" type="tel" inputMode="tel" placeholder="0901 234 567" maxLength={15} aria-invalid={!!errors.phone} />
-            {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-sm font-bold mb-1.5 block">Chiều đi *</label>
-              <select name="direction" defaultValue="bl-sg" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm">
-                <option value="bl-sg">Bảo Lộc → Sài Gòn</option>
-                <option value="sg-bl">Sài Gòn → Bảo Lộc</option>
-              </select>
-            </div>
-            <div>
-              <label className="text-sm font-bold mb-1.5 block">Số khách</label>
-              <Input name="pax" type="number" min={1} max={9} defaultValue={1} aria-invalid={!!errors.pax} />
-              {errors.pax && <p className="text-xs text-destructive mt-1">{errors.pax}</p>}
-            </div>
-          </div>
-          <div>
-            <label className="text-sm font-bold mb-1.5 block">Ngày khởi hành *</label>
-            <Input name="date" type="date" aria-invalid={!!errors.date} />
-            {errors.date && <p className="text-xs text-destructive mt-1">{errors.date}</p>}
-          </div>
-          <div>
-            <label className="text-sm font-bold mb-1.5 block">Ghi chú (điểm đón, giờ, dịch vụ thêm)</label>
-            <Input name="note" placeholder="VD: Đón tại bệnh viện Chợ Rẫy lúc 14h" maxLength={300} />
-          </div>
-          <Button type="submit" size="lg" disabled={status === "submitting"} className="w-full bg-gradient-gold text-gold-foreground hover:opacity-90 shadow-gold font-bold h-12 text-base">
-            {status === "submitting" ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Đang gửi...</> : <><Send className="w-4 h-4 mr-2" /> Gửi yêu cầu đặt xe</>}
-          </Button>
-          {status === "ok" && (
-            <div className="flex items-center gap-2 text-sm text-primary font-semibold p-3 rounded-lg bg-primary/10">
-              <CheckCircle2 className="w-5 h-5" /> Đã nhận yêu cầu! Tài Phát sẽ liên hệ trong 5 phút.
-            </div>
-          )}
-          <p className="text-xs text-muted-foreground text-center">Thông tin của bạn được bảo mật, chỉ dùng để xác nhận chuyến.</p>
-        </form>
-      </div>
-    </section>
   );
 }
