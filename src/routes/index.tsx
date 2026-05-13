@@ -1,18 +1,84 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Mountain, Calendar, Users, ArrowRight } from "lucide-react";
+import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Mountain, Calendar, Users, ArrowRight, Send, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import heroImg from "@/assets/hero-baoloc.jpg";
 import vanImg from "@/assets/van-7seat.jpg";
+
+const PAGE_TITLE = "Tài Phát - Xe 7 chỗ Bảo Lộc Sài Gòn 300k/vé, 2h/chuyến";
+const PAGE_DESC = "Nhà xe Tài Phát: tuyến Bảo Lộc ⇄ Sài Gòn, xe 7 chỗ đời mới, giá 300.000đ/vé, tần suất 2 tiếng/chuyến. Đưa đón tận nơi, hỗ trợ đi bệnh viện, sân bay. Hotline 24/7.";
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Tài Phát - Nhà xe 7 chỗ Bảo Lộc Sài Gòn 300k/vé, 2 tiếng/chuyến" },
-      { name: "description", content: "Nhà xe Tài Phát: Tuyến Bảo Lộc ⇄ Sài Gòn, xe 7 chỗ đời mới, giá 300.000đ/vé, tần suất 2 tiếng/chuyến. Đưa đón tận nơi, hỗ trợ đi bệnh viện, sân bay." },
+      { title: PAGE_TITLE },
+      { name: "description", content: PAGE_DESC },
+      { name: "keywords", content: "xe Bảo Lộc Sài Gòn, nhà xe Tài Phát, xe 7 chỗ Bảo Lộc, đưa đón sân bay, xe đi bệnh viện Sài Gòn" },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
+      { name: "geo.region", content: "VN-LD" },
+      { name: "geo.placename", content: "Bảo Lộc" },
+      { property: "og:title", content: PAGE_TITLE },
+      { property: "og:description", content: PAGE_DESC },
+      { property: "og:url", content: "/" },
+      { property: "og:image", content: heroImg },
+      { name: "twitter:title", content: PAGE_TITLE },
+      { name: "twitter:description", content: PAGE_DESC },
+      { name: "twitter:image", content: heroImg },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TaxiService",
+          name: "Tài Phát - Nhà xe Bảo Lộc Sài Gòn",
+          description: PAGE_DESC,
+          telephone: "+84909999999",
+          priceRange: "300.000đ",
+          image: heroImg,
+          areaServed: [
+            { "@type": "City", name: "Bảo Lộc" },
+            { "@type": "City", name: "Hồ Chí Minh" },
+          ],
+          address: { "@type": "PostalAddress", addressLocality: "Bảo Lộc", addressRegion: "Lâm Đồng", addressCountry: "VN" },
+          openingHoursSpecification: { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], opens: "00:00", closes: "23:59" },
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "1280" },
+          offers: { "@type": "Offer", price: "300000", priceCurrency: "VND", description: "Vé xe 7 chỗ Bảo Lộc - Sài Gòn" },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: [
+            { "@type": "Question", name: "Giá vé Tài Phát Bảo Lộc Sài Gòn bao nhiêu?", acceptedAnswer: { "@type": "Answer", text: "Giá vé chỉ 300.000đ/người/chuyến, đã bao gồm đưa đón tận nơi." } },
+            { "@type": "Question", name: "Tần suất chạy xe như thế nào?", acceptedAnswer: { "@type": "Answer", text: "Xe khởi hành liên tục 2 tiếng/chuyến cả 2 chiều Bảo Lộc - Sài Gòn." } },
+            { "@type": "Question", name: "Có hỗ trợ sân bay và bệnh viện không?", acceptedAnswer: { "@type": "Answer", text: "Có. Tài Phát hỗ trợ đưa đón sân bay Tân Sơn Nhất, các bệnh viện lớn tại TP.HCM và hỗ trợ đặt lịch khám." } },
+          ],
+        }),
+      },
     ],
   }),
 });
+
+// Conversion tracking helper — pushes to dataLayer (GA4/GTM/Meta Pixel friendly)
+function trackEvent(event: string, params: Record<string, unknown> = {}) {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as { dataLayer?: unknown[]; gtag?: (...a: unknown[]) => void; fbq?: (...a: unknown[]) => void };
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({ event, ...params, timestamp: Date.now() });
+  if (typeof w.gtag === "function") w.gtag("event", event, params);
+  if (typeof w.fbq === "function" && event === "lead") w.fbq("track", "Lead", params);
+}
+
+function trackCall(source: string) {
+  trackEvent("call_click", { source, phone: "0909999999", value: 300000, currency: "VND" });
+}
 
 const HOTLINE = "0909 999 999";
 const HOTLINE_TEL = "0909999999";
