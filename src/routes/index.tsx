@@ -133,6 +133,7 @@ function Header() {
           <a href="#tuyen" className="hover:text-primary">Tuyến đường</a>
           <a href="#xe" className="hover:text-primary">Phương tiện</a>
           <a href="#danh-gia" className="hover:text-primary">Đánh giá</a>
+          <a href="#dat-xe" className="hover:text-primary">Đặt xe</a>
         </nav>
         <Button asChild size="lg" className="bg-gradient-gold text-gold-foreground hover:opacity-90 shadow-gold font-bold">
           <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")}><Phone className="w-4 h-4 mr-2" /> Đặt xe ngay</a>
