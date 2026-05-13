@@ -457,3 +457,109 @@ function Footer() {
     </footer>
   );
 }
+
+const bookingSchema = z.object({
+  name: z.string().trim().min(2, "Vui lòng nhập họ tên").max(60),
+  phone: z.string().trim().regex(/^(0|\+84)[0-9]{9,10}$/, "Số điện thoại không hợp lệ"),
+  direction: z.enum(["bl-sg", "sg-bl"]),
+  date: z.string().min(1, "Chọn ngày khởi hành"),
+  pax: z.string().regex(/^[1-9][0-9]?$/, "Số khách 1-99").default("1"),
+  note: z.string().max(300).optional().default(""),
+});
+
+function BookingForm() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "ok" | "error">("idle");
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrors({});
+    const fd = new FormData(e.currentTarget);
+    const raw = Object.fromEntries(fd.entries());
+    const parsed = bookingSchema.safeParse(raw);
+    if (!parsed.success) {
+      const map: Record<string, string> = {};
+      parsed.error.issues.forEach((i) => { map[String(i.path[0])] = i.message; });
+      setErrors(map);
+      trackEvent("form_error", { form: "booking", errors: Object.keys(map) });
+      return;
+    }
+    setStatus("submitting");
+    trackEvent("generate_lead", {
+      form: "booking",
+      direction: parsed.data.direction,
+      pax: Number(parsed.data.pax),
+      value: 300000 * Number(parsed.data.pax),
+      currency: "VND",
+    });
+    trackEvent("lead", { form: "booking" });
+    // Simulate handoff: open phone dialer for instant confirmation
+    setTimeout(() => {
+      setStatus("ok");
+      (e.target as HTMLFormElement).reset();
+    }, 600);
+  };
+
+  return (
+    <section id="dat-xe" className="py-20 px-4 bg-secondary/40">
+      <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <div className="inline-block px-3 py-1 rounded-full bg-gold/20 text-primary text-sm font-bold mb-3">ĐẶT XE NHANH</div>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight">Để lại thông tin, <br /><span className="text-primary">Tài Phát gọi lại trong 5 phút</span></h2>
+          <p className="mt-4 text-muted-foreground text-lg">Hoặc gọi trực tiếp hotline để giữ chỗ chuyến gần nhất. Tổng đài 24/7.</p>
+          <a
+            href={`tel:${HOTLINE_TEL}`}
+            onClick={() => trackCall("booking_section")}
+            className="mt-6 inline-flex items-center gap-3 text-primary font-bold text-xl hover:text-gold transition-colors"
+          >
+            <Phone className="w-6 h-6" /> {HOTLINE}
+          </a>
+        </div>
+        <form onSubmit={onSubmit} noValidate className="p-6 md:p-8 rounded-3xl bg-card shadow-elegant border space-y-4">
+          <div>
+            <label className="text-sm font-bold mb-1.5 block">Họ tên *</label>
+            <Input name="name" placeholder="Nguyễn Văn A" maxLength={60} aria-invalid={!!errors.name} />
+            {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
+          </div>
+          <div>
+            <label className="text-sm font-bold mb-1.5 block">Số điện thoại *</label>
+            <Input name="phone" type="tel" inputMode="tel" placeholder="0901 234 567" maxLength={15} aria-invalid={!!errors.phone} />
+            {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-sm font-bold mb-1.5 block">Chiều đi *</label>
+              <select name="direction" defaultValue="bl-sg" className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-sm">
+                <option value="bl-sg">Bảo Lộc → Sài Gòn</option>
+                <option value="sg-bl">Sài Gòn → Bảo Lộc</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-sm font-bold mb-1.5 block">Số khách</label>
+              <Input name="pax" type="number" min={1} max={9} defaultValue={1} aria-invalid={!!errors.pax} />
+              {errors.pax && <p className="text-xs text-destructive mt-1">{errors.pax}</p>}
+            </div>
+          </div>
+          <div>
+            <label className="text-sm font-bold mb-1.5 block">Ngày khởi hành *</label>
+            <Input name="date" type="date" aria-invalid={!!errors.date} />
+            {errors.date && <p className="text-xs text-destructive mt-1">{errors.date}</p>}
+          </div>
+          <div>
+            <label className="text-sm font-bold mb-1.5 block">Ghi chú (điểm đón, giờ, dịch vụ thêm)</label>
+            <Input name="note" placeholder="VD: Đón tại bệnh viện Chợ Rẫy lúc 14h" maxLength={300} />
+          </div>
+          <Button type="submit" size="lg" disabled={status === "submitting"} className="w-full bg-gradient-gold text-gold-foreground hover:opacity-90 shadow-gold font-bold h-12 text-base">
+            {status === "submitting" ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Đang gửi...</> : <><Send className="w-4 h-4 mr-2" /> Gửi yêu cầu đặt xe</>}
+          </Button>
+          {status === "ok" && (
+            <div className="flex items-center gap-2 text-sm text-primary font-semibold p-3 rounded-lg bg-primary/10">
+              <CheckCircle2 className="w-5 h-5" /> Đã nhận yêu cầu! Tài Phát sẽ liên hệ trong 5 phút.
+            </div>
+          )}
+          <p className="text-xs text-muted-foreground text-center">Thông tin của bạn được bảo mật, chỉ dùng để xác nhận chuyến.</p>
+        </form>
+      </div>
+    </section>
+  );
+}
