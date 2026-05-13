@@ -106,7 +106,7 @@ function TopBar() {
     <div className="bg-primary text-primary-foreground text-sm py-2 px-4">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
         <span className="flex items-center gap-2"><MapPin className="w-4 h-4 text-gold" /> Bảo Lộc ⇄ Sài Gòn — Đưa đón tận nơi</span>
-        <a href={`tel:${HOTLINE_TEL}`} className="flex items-center gap-2 font-semibold hover:text-gold transition-colors">
+        <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")} className="flex items-center gap-2 font-semibold hover:text-gold transition-colors">
           <Phone className="w-4 h-4" /> Hotline: {HOTLINE}
         </a>
       </div>
@@ -134,7 +134,7 @@ function Header() {
           <a href="#danh-gia" className="hover:text-primary">Đánh giá</a>
         </nav>
         <Button asChild size="lg" className="bg-gradient-gold text-gold-foreground hover:opacity-90 shadow-gold font-bold">
-          <a href={`tel:${HOTLINE_TEL}`}><Phone className="w-4 h-4 mr-2" /> Đặt xe ngay</a>
+          <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")}><Phone className="w-4 h-4 mr-2" /> Đặt xe ngay</a>
         </Button>
       </div>
     </header>
@@ -162,7 +162,7 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" className="bg-gradient-gold text-gold-foreground hover:opacity-90 shadow-gold font-bold text-base h-14 px-8">
-              <a href={`tel:${HOTLINE_TEL}`}><Phone className="w-5 h-5 mr-2" /> Gọi {HOTLINE}</a>
+              <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")}><Phone className="w-5 h-5 mr-2" /> Gọi {HOTLINE}</a>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-2 border-primary-foreground/40 bg-primary-foreground/10 backdrop-blur text-primary-foreground hover:bg-primary-foreground hover:text-primary h-14 px-8 font-bold">
               <a href="#dich-vu">Xem dịch vụ <ArrowRight className="w-4 h-4 ml-2" /></a>
@@ -399,7 +399,7 @@ function CTA() {
             <p className="mt-4 text-lg opacity-90">Gọi ngay để đặt chuyến gần nhất. Tài Phát luôn có xe phục vụ bạn.</p>
           </div>
           <div className="flex flex-col gap-3">
-            <a href={`tel:${HOTLINE_TEL}`} className="flex items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-gold text-gold-foreground shadow-gold hover:scale-[1.02] transition-transform">
+            <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")} className="flex items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-gold text-gold-foreground shadow-gold hover:scale-[1.02] transition-transform">
               <div>
                 <div className="text-sm font-bold opacity-80">HOTLINE 24/7</div>
                 <div className="text-3xl font-black">{HOTLINE}</div>
@@ -435,7 +435,7 @@ function Footer() {
         <div>
           <div className="font-bold text-primary-foreground mb-3">Liên hệ</div>
           <div className="space-y-2 text-sm">
-            <a href={`tel:${HOTLINE_TEL}`} className="flex items-center gap-2 hover:text-gold"><Phone className="w-4 h-4" /> {HOTLINE}</a>
+            <a href={`tel:${HOTLINE_TEL}`} onClick={() => trackCall("link")} className="flex items-center gap-2 hover:text-gold"><Phone className="w-4 h-4" /> {HOTLINE}</a>
             <div className="flex items-center gap-2"><MapPin className="w-4 h-4" /> Bảo Lộc, Lâm Đồng</div>
             <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> 24/7 — 365 ngày</div>
           </div>
