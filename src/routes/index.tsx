@@ -95,6 +95,7 @@ function Index() {
       <Vehicle />
       <Process />
       <Testimonials />
+      <BookingForm />
       <CTA />
       <Footer />
     </div>
