@@ -3,6 +3,7 @@ import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircl
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero-baoloc.jpg";
 import vanImg from "@/assets/van-7seat.jpg";
+import logoImg from "@/assets/tai-phat-logo.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -53,12 +54,9 @@ function Header() {
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <a href="#" className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-gradient-primary flex items-center justify-center shadow-elegant">
-            <Mountain className="w-6 h-6 text-primary-foreground" />
-          </div>
-          <div>
-            <div className="text-xl font-black tracking-tight">TÀI PHÁT</div>
-            <div className="text-xs text-muted-foreground -mt-1">Nhà xe Bảo Lộc — Sài Gòn</div>
+          <img src={logoImg} alt="Tài Phát logo" width={160} height={48} className="h-11 md:h-12 w-auto object-contain" />
+          <div className="hidden sm:block">
+            <div className="text-xs text-muted-foreground">Nhà xe Bảo Lộc — Sài Gòn</div>
           </div>
         </a>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -356,11 +354,10 @@ function Footer() {
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-11 h-11 rounded-xl bg-gradient-gold flex items-center justify-center">
-              <Mountain className="w-6 h-6 text-gold-foreground" />
+            <div className="bg-white rounded-xl p-2 inline-flex">
+              <img src={logoImg} alt="Tài Phát logo" width={160} height={48} className="h-10 w-auto object-contain" />
             </div>
             <div>
-              <div className="text-xl font-black text-primary-foreground">TÀI PHÁT</div>
               <div className="text-xs">Nhà xe Bảo Lộc — Sài Gòn</div>
             </div>
           </div>
