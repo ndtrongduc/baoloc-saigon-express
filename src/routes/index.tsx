@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Mountain, Calendar, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero-baoloc.jpg";
-import vanImg from "@/assets/van-7seat.jpg";
+import vanImg from "@/assets/tai-phat-1.jpg";
 import logoImg from "@/assets/tai-phat-logo.jpg";
 
 export const Route = createFileRoute("/")({
@@ -15,8 +15,8 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const HOTLINE = "0909 999 999";
-const HOTLINE_TEL = "0909999999";
+const HOTLINE = "0888889848";
+const HOTLINE_TEL = "0888898884";
 
 function Index() {
   return (
