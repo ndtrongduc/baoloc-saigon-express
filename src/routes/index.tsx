@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Mountain, Calendar, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-baoloc.jpg";
+import heroImg from "@/assets/hero-bao-loc.png";
 import vanImg from "@/assets/tai-phat-1.jpg";
 import logoImg from "@/assets/tai-phat-logo.jpg";
 
@@ -182,7 +182,7 @@ function Route2Hour() {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
         <div>
           <div className="inline-block px-3 py-1 rounded-full bg-gold/20 text-primary text-sm font-bold mb-3">TUYẾN ĐƯỜNG</div>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight">Bảo Lộc — Sài Gòn <br /> chỉ <span className="text-primary">2 tiếng</span></h2>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight">Bảo Lộc — Sài Gòn </h2>
           <p className="mt-4 text-muted-foreground text-lg">Tài xế thông thuộc cung đường, biết rõ từng đoạn đèo. Xe chạy đúng giờ, an toàn tuyệt đối — đưa bạn đến nơi nhanh nhất.</p>
           <div className="mt-8 space-y-3">
             {["Đón tận nhà tại Bảo Lộc & Sài Gòn", "Hỗ trợ điểm dọc đường: Madagui, Dầu Giây", "Khởi hành liên tục cách nhau 2 tiếng", "Tài xế lâu năm, am hiểu đèo Bảo Lộc"].map((b) => (
@@ -214,7 +214,7 @@ function Route2Hour() {
           <div className="mt-6 pt-6 border-t flex items-center justify-between">
             <div>
               <div className="text-xs text-muted-foreground">Thời gian</div>
-              <div className="text-2xl font-black text-primary">~2 giờ</div>
+              <div className="text-2xl font-black text-primary">4-5 giờ</div>
             </div>
             <div>
               <div className="text-xs text-muted-foreground">Giá vé</div>
