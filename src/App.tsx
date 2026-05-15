@@ -1,24 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Mountain, Calendar, Users, ArrowRight } from "lucide-react";
+import { Phone, Clock, MapPin, Plane, Stethoscope, ShieldCheck, Star, CheckCircle2, Calendar, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImg from "@/assets/hero-bao-loc.png";
 import vanImg from "@/assets/tai-phat-1.jpg";
 import logoImg from "@/assets/tai-phat-logo.jpg";
 
-export const Route = createFileRoute("/")({
-  component: Index,
-  head: () => ({
-    meta: [
-      { title: "Tài Phát - Nhà xe 7 chỗ Bảo Lộc Sài Gòn 300k/vé, 2 tiếng/chuyến" },
-      { name: "description", content: "Nhà xe Tài Phát: Tuyến Bảo Lộc ⇄ Sài Gòn, xe 7 chỗ đời mới, giá 300.000đ/vé, tần suất 2 tiếng/chuyến. Đưa đón tận nơi, hỗ trợ đi bệnh viện, sân bay." },
-    ],
-  }),
-});
-
 const HOTLINE = "0888889848";
 const HOTLINE_TEL = "0888898884";
 
-function Index() {
+export default function App() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <TopBar />
